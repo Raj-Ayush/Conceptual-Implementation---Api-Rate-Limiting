@@ -15,7 +15,8 @@ app.use(bodyParser.json())
 // your code goes here
 let initialMax = null;
 let noOfApiCalls = 0;
-app.get('api/posts',(req, res) => {
+
+app.get('/api/posts',(req, res) => {
     if(noOfApiCalls >= 5){
         res.status(429).send({message: "Exceed Number of API calls"});
         return;
@@ -23,6 +24,7 @@ app.get('api/posts',(req, res) => {
     const parsedMax = Number(req.query.max || 10);
     const max = parsedMax > 20 ? 10: parsedMax; 
     let finalMax = max;
+
     if(initialMax !== null){
         finalMax = Math.min(initialMax, finalMax); 
     }
