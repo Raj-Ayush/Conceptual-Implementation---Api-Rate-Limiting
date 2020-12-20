@@ -17,8 +17,8 @@ let initialMax = null;
 let noOfApiCalls = 0;
 
 app.get('/api/posts',(req, res) => {
-    if(noOfApiCalls >= 5){
-        res.status(429).send({message: "Exceed Number of API calls"});
+    if(noOfApiCalls > 5){
+        res.status(429).send({message: "Exceed Number of API Calls"});
         return;
     }
     const parsedMax = Number(req.query.max || 10);
@@ -26,14 +26,14 @@ app.get('/api/posts',(req, res) => {
     let finalMax = max;
 
     if(initialMax !== null){
-        finalMax = Math.min(initialMax, finalMax); 
+        finalMax = Math.min(finalMax, initialMax); 
     }
     const topMax = posts.filter((value, idx) => idx < finalMax);
     res.send(topMax);
     if(initialMax === null){
         initialMax = max;
         noOfApiCalls++;
-        setTimeout(() =>{
+        setTimeout(() => {
             initialMax = null;
             noOfApiCalls = 0;
         }, 30*1000);
