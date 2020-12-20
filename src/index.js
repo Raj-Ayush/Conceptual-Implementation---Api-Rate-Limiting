@@ -17,7 +17,7 @@ let initialMax = null;
 let noOfApiCalls = 0;
 
 app.get('/api/posts',(req, res) => {
-    if(noOfApiCalls > 5){
+    if(noOfApiCalls >= 5){
         res.status(429).send({message: "Exceed Number of API Calls"});
         return;
     }
